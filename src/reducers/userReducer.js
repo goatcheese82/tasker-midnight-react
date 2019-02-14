@@ -7,6 +7,11 @@ const initialState = {
 
 export default function (state = initialState, action) {
     switch (action.type) {
+        case FETCH_USERS:
+        return {
+            ...state,
+            items: action.users
+        }
         default:
             return state;
     }
