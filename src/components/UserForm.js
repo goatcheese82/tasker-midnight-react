@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { createUser } from '../actions/userActions'
 
 class UserForm extends Component {
   constructor(props) {
     super(props);
-    this.state =  {
+    this.state = {
       name: '',
       email: ''
     }
@@ -15,27 +18,19 @@ class UserForm extends Component {
 
 
   onChange = (e) => {
-    this.setState({[e.target.name]: e.target.value});
+    this.setState({ [e.target.name]: e.target.value });
   }
 
   onSubmit = (e) => {
     e.preventDefault();
-    
+
 
     const user = {
       name: this.state.name,
       email: this.state.email
     }
 
-    fetch('http://jsonplaceholder.typicode.com/users', {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json'
-      },
-      body: JSON.stringify(user)   
-    })
-    .then(res => res.json())
-    .then(data => console.log(data));
+    this.props.createUser(user);
   }
 
   render() {
@@ -44,8 +39,8 @@ class UserForm extends Component {
         <h1>Add User</h1>
         <form onSubmit={this.onSubmit}>
           <div>
-          <label>Name:</label>
-          <input type="text" name='name' onChange={this.onChange} value={this.state.name}></input>
+            <label>Name:</label>
+            <input type="text" name='name' onChange={this.onChange} value={this.state.name}></input>
           </div>
           <div>
             <label>Email:</label>
@@ -58,4 +53,8 @@ class UserForm extends Component {
   }
 }
 
-export default UserForm;
+UserForm.propTypes = {
+  createUser: PropTypes.func.isRequired
+};
+
+export default connect(null, { createUser })(UserForm);

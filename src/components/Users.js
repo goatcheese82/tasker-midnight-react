@@ -7,6 +7,12 @@ class Users extends Component {
   componentWillMount() {
     this.props.fetchUsers();
   }
+  
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.newUser) {
+      this.props.users.push(nextProps.newUser);
+    }
+  }
 
   render() {
       const userItems = this.props.users.map(user => (
@@ -27,11 +33,13 @@ class Users extends Component {
 
 Users.propTypes = {
   fetchUsers: PropTypes.func.isRequired,
-  users: PropTypes.array.isRequired
+  users: PropTypes.array.isRequired,
+  newUser: PropTypes.object
 }
 
 const mapStateToProps = state => ({
-  users: state.users.items
+  users: state.users.items,
+  newUser: state.users.item
 })
 
 export default connect(mapStateToProps, { fetchUsers })(Users)
