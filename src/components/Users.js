@@ -9,7 +9,7 @@ class Users extends Component {
         }
     }
     componentWillMount() {
-        fetch('http://jsonplaceholder.typicode.com/users')
+        fetch('http://localhost:3000/users')
         .then(res => res.json())
         .then(data => this.setState({ users: data}));
     }
