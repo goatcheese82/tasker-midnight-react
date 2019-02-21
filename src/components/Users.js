@@ -19,6 +19,10 @@ class Users extends Component {
           <div key={user.id}>
             <h3>{user.name}</h3>
             <p>{user.email}</p>
+            <p>{user.birthdate}</p>
+            <img src={user.image} alt=''></img>
+            
+            Lindsay is the best!!
           </div>
       ))
     return (
